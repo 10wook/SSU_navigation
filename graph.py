@@ -7,7 +7,9 @@ import matplotlib.image as img
 image = img.imread('./image.jpg')
 
 # csv 데이터 불러오기
-df_p = pd.read_csv('./position_data.csv')
+#df_p = pd.read_csv('./position_data.csv')
+#엑셀에서 불러 올 수 있게 수정했습니다.
+df_p = pd.read_excel('./excel_data/position_data.xlsx')
 
 # 그래프 객체 설정
 G = nx.MultiDiGraph()
