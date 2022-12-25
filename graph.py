@@ -10,7 +10,7 @@ image = img.imread('./image.jpg')
 df_p = pd.read_csv('./position_data.csv')
 
 # 그래프 객체 설정
-G = nx.Graph()
+G = nx.MultiDiGraph()
 
 # 노드 설정
 for i in range(len(df_p['point_name'])):
