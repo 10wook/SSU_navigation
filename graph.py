@@ -21,6 +21,7 @@ G = nx.MultiDiGraph()
 for i in range(len(df_p['point_name'])):
     G.add_node(str(df_p['point_name'][i]))
 
+
 # 엣지 설정
 for i in range(len(df_w.values)):
     for j in range(len(df_w.values)):
@@ -29,14 +30,18 @@ for i in range(len(df_w.values)):
         elif i >= 25:
             tmp_i = chr(i+40)
             idx_i = chr(i+40)
+            if j >= 25:
+                tmp_j = chr(j+40)
+            else:
+                tmp_j = str(j+1)
         elif j >= 25:
             tmp_j = chr(j+40)
         else:
             tmp_i = str(i+1)
             tmp_j = str(j+1)
             idx_i = i+1
-
-        G.add_edge(tmp_j, tmp_i, weight=int(df_w[idx_i][j]))
+        print(tmp_i, "->", tmp_j)
+        G.add_edge(tmp_i, tmp_j, weight=int(df_w[idx_i][j]))
 
 # 좌표 설정
 pos = {}
