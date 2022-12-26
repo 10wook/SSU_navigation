@@ -41,7 +41,7 @@ for i in range(len(df_w.values)):
             tmp_j = str(j+1)
             idx_i = i+1
         #print(tmp_i, "->", tmp_j)
-        G.add_edge(tmp_i, tmp_j, weight=int(df_w[idx_i][j]))
+        G.add_edge(tmp_j, tmp_i, weight=int(df_w[idx_i][j]))
 
 # 좌표 설정
 pos = {}
