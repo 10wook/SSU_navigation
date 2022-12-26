@@ -40,7 +40,7 @@ for i in range(len(df_w.values)):
             tmp_i = str(i+1)
             tmp_j = str(j+1)
             idx_i = i+1
-        print(tmp_i, "->", tmp_j)
+        #print(tmp_i, "->", tmp_j)
         G.add_edge(tmp_i, tmp_j, weight=int(df_w[idx_i][j]))
 
 # 좌표 설정
@@ -49,8 +49,9 @@ for i in range(len(df_p['point_name'])):
     node = df_p['point_name'][i]
     pos[str(node)] = (df_p['pos_x'][i], df_p['pos_y'][i])
 
-NG ,min = shortpath_print_dijkstra(G,'23','10')
+NG ,min = shortpath_print_dijkstra(G,'E','1')
 nxgraph_draw(NG,pos)
+print(min)
 
 # 그리기
 # nx.draw(G, pos, node_size=100, font_size=5,
