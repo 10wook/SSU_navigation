@@ -2,7 +2,7 @@ import networkx as nx
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.image as img
-
+from dijkstra import *
 # 이미지 불러오기
 image = img.imread('./image.jpg')
 
@@ -44,8 +44,11 @@ for i in range(len(df_p['point_name'])):
     node = df_p['point_name'][i]
     pos[str(node)] = (df_p['pos_x'][i], df_p['pos_y'][i])
 
+NG ,min = shortpath_print_dijkstra(G,'23','10')
+nxgraph_draw(NG,pos)
+
 # 그리기
-nx.draw(G, pos, node_size=100, font_size=5,
-        font_color="white", with_labels=True)
-plt.imshow(image)
-plt.show()
+# nx.draw(G, pos, node_size=100, font_size=5,
+#         font_color="white", with_labels=True)
+# plt.imshow(image)
+# plt.show()
