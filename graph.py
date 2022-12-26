@@ -29,4 +29,4 @@ nx.draw(G, pos, node_size=100, font_size=5,
         font_color="white", with_labels=True)
 plt.imshow(image)
 plt.show()
-print(1)
+
