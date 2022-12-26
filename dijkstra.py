@@ -16,7 +16,7 @@ def shortpath_print_dijkstra(G,start,end):
 
 def nxgraph_draw(Graph,pos):
     
-    nx.draw_networkx_nodes(Graph, pos=pos,node_size=500,node_color='yellow')
+    nx.draw_networkx_nodes(Graph, pos=pos,node_size=300,node_color='yellow')
     #nx.draw_networkx_edge_labels(Graph, pos=pos)
     nx.draw_networkx_edges(Graph, pos=pos)
     nx.draw_networkx_labels(Graph, pos=pos, font_size=10)
