@@ -8,8 +8,11 @@ image = img.imread('./image.jpg')
 
 # csv 데이터 불러오기
 #df_p = pd.read_csv('./position_data.csv')
-#엑셀에서 불러 올 수 있게 수정했습니다.
+# 엑셀에서 불러 올 수 있게 수정했습니다.
+# position data
 df_p = pd.read_excel('./excel_data/position_data.xlsx')
+# weight data
+df_w = pd.read_excel('./excel_data/weight_data.xlsx')
 
 # 그래프 객체 설정
 G = nx.MultiDiGraph()
@@ -17,6 +20,13 @@ G = nx.MultiDiGraph()
 # 노드 설정
 for i in range(len(df_p['point_name'])):
     G.add_node(str(df_p['point_name'][i]))
+
+# 엣지 설정
+for i in range(len(df_w.values)):
+    for j in range(len(df_w.values)):
+        if i == j:
+            continue
+        G.add_edge(j, i, weight=df_w[i][j])
 
 # 좌표 설정
 pos = {}
