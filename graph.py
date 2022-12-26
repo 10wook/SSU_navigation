@@ -17,16 +17,27 @@ df_w = pd.read_excel('./excel_data/weight_data.xlsx')
 # 그래프 객체 설정
 G = nx.MultiDiGraph()
 
+
 # 노드 설정
 for i in range(len(df_p['point_name'])):
     G.add_node(str(df_p['point_name'][i]))
 
 # 엣지 설정
-for i in range(len(df_w.values)):
+for i in range(len(df_w.values)-5):
     for j in range(len(df_w.values)):
-        if i == j:
+        if i+1 == j+1:
             continue
-        G.add_edge(j, i, weight=df_w[i][j])
+        # print(type(df_w[i+1][j]))
+        k = (j, i, int(df_w[i+1][j]))
+        G.add_weighted_edges_from(k)
+
+for i in range(5):
+    for j in range(len(df_w.values)):
+        if i+26 == j+1:
+            continue
+        # print(df_w[str(chr(i+65))][j])
+        k = (j, chr(i+65), int(df_w[str(chr(i+65))][j]))
+        G.add_weighted_edges_from(k)
 
 # 좌표 설정
 pos = {}
@@ -39,4 +50,3 @@ nx.draw(G, pos, node_size=100, font_size=5,
         font_color="white", with_labels=True)
 plt.imshow(image)
 plt.show()
-
