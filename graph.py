@@ -48,8 +48,10 @@ for i in range(len(df_p['point_name'])):
     node = df_p['point_name'][i]
     pos[str(node)] = (df_p['pos_x'][i], df_p['pos_y'][i])
 
-NG, min = shortpath_print_dijkstra(G, 'A', '18')
-nxgraph_draw(NG, pos)
+
+NG ,min = shortpath_print_dijkstra(G,'1','18')
+nxgraph_draw(NG,pos)
+
 print(min)
 nx.draw(NG, pos)
 nx.draw_networkx_nodes(NG, pos=pos, node_size=300, node_color='yellow')
