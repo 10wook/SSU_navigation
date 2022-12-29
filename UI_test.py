@@ -41,25 +41,20 @@ button_size = 40
 pad_width = background_width + button_size/2
 pad_height = button_size/2 + background_height/4
 
-title_font = pygame.font.SysFont('Corbel', 40, True, True)
+title_font = pygame.font.SysFont('Arial', 40, True, True)
+font = pygame.font.SysFont('Arial', 35, True)
+small_font = pygame.font.SysFont('Arial', 20, True)
 
-
-if platform.system() == 'Windows':  # window
-    font = pygame.font.SysFont('malgungothic', 35, True)
-    small_font = pygame.font.SysFont('malgungothic', 20, True)
-else:  # mac
-    small_font = pygame.font.SysFont('applegothicttf', 20, True)
-    font = pygame.font.SysFont('applegothicttf', 35, True)
 alpha = ['A', 'B', 'C', 'D', 'E']
 
 # 텍스트
-text_source = font.render('출발지를', True, color_a)
-text_destination = font.render('도착지를', True, color_a)
-text_select = font.render('선택해주세요', True, color_b)
-text_choose = font.render('선택', True, color_0)
-text_retry = small_font.render('이전', True, color_0)
-# text_output = font.render('결과', True, color_b)
-# text_check = font.render('확인', True, color_0)
+text_source = font.render('where to \"start\"', True, color_a)
+text_destination = font.render('where to \"end\"', True, color_a)
+text_select = font.render('Select', True, color_b)
+text_choose = font.render('select', True, color_0)
+text_retry = small_font.render('back', True, color_0)
+text_output = font.render('output', True, color_b)
+text_check = font.render('check', True, color_0)
 
 
 # FPS
@@ -92,25 +87,25 @@ def make_button_number(color, number, i, j):
         pygame.draw.rect(
             screen, color, [pad_width + (50*j), pad_height+(50*i), button_size, button_size])
         screen.blit(font.render(str((1*j)+(5*i)+1),
-                    True, color_0), (pad_width + (50*j)+8, pad_height+(50*i)-5))
+                    True, color_0), (pad_width + (50*j)+12, pad_height+(50*i)))
     else:
         pygame.draw.rect(
             screen, color, [pad_width + (50*j), pad_height+(50*i), button_size, button_size])
         screen.blit(font.render(str((1*j)+(5*i)+1),
-                    True, color_0), (pad_width + (50*j), pad_height+(50*i)-5))
+                    True, color_0), (pad_width + (50*j)+3, pad_height+(50*i)))
 
 
 def make_button_alpha(color, i):
     pygame.draw.rect(
         screen, color, [pad_width + (50*i), pad_height+260, 40, 40])
     screen.blit(font.render(
-        alpha[i], True, color_0), (pad_width + (50*i)+8, pad_height+255))
+        alpha[i], True, color_0), (pad_width + (50*i)+10, pad_height+260))
 
 
 def make_button_main(color, text):
     pygame.draw.rect(
         screen, color, [pad_width + 60, screen_height - 100, 120, 50])
-    screen.blit(text, (pad_width + 83, screen_height - 100))
+    screen.blit(text, (pad_width + 80, screen_height - 95))
 
 
 def make_graph(start, end):
@@ -163,13 +158,13 @@ def make_graph(start, end):
 def make_button_back(color, text):
     pygame.draw.rect(
         screen, color, [pad_width+180, 20, 50, 30])
-    screen.blit(text, (pad_width+184, 20))
+    screen.blit(text, (pad_width+187, 20))
 
 
 def make_title(text1, text2):
-    screen.blit(text1, (pad_width, 20))
+    screen.blit(text1, (pad_width + 20, 70))
     if text2 != None:
-        screen.blit(text2, (pad_width + 20, 70))
+        screen.blit(text2, (pad_width, 20))
 
 
 def pos_to_index(x, y):
@@ -291,7 +286,7 @@ def input_destination(source):  # destination을 입력받음
         else:
             make_button_main(color_b, text_choose)
 
-        # 이전 버튼 그려주기
+        # back 버튼 그려주기
         if check_in_retry(mouse):
             make_button_back(color_a, text_retry)
         else:
@@ -332,11 +327,11 @@ def output(time, start, end):
             make_button_main(color_b, text_check)
 
         # 선택 항목 출력
-        screen.blit(font.render(start + " 에서 " + end + " 까지", True, color_a),
+        screen.blit(font.render(start + " to " + end, True, color_a),
                     (pad_width, screen_height - 450))
 
         # 시간 출력
-        screen.blit(font.render("소요시간: " + str(time)+"분 미만", True, color_a),
+        screen.blit(font.render('time: ' + str(time)+' minutes', True, color_a),
                     (pad_width + 30, screen_height - 400))
         # updates the frames of the game
         pygame.display.update()
@@ -384,25 +379,20 @@ while True:
         pad_width = background_width + button_size/2
         pad_height = button_size/2 + background_height/4
 
-        title_font = pygame.font.SysFont('Corbel', 40, True, True)
-
-        if platform.system() == 'Windows':  # window
-            font = pygame.font.SysFont('malgungothic', 35, True)
-            small_font = pygame.font.SysFont('malgungothic', 20, True)
-        else:  # mac
-            small_font = pygame.font.SysFont('applegothicttf', 20, True)
-            font = pygame.font.SysFont('applegothicttf', 35, True)
+        title_font = pygame.font.SysFont('Arial', 40, True, True)
+        font = pygame.font.SysFont('Arial', 35, True)
+        small_font = pygame.font.SysFont('Arial', 20, True)
 
         alpha = ['A', 'B', 'C', 'D', 'E']
 
         # 텍스트
-        text_source = font.render('출발지를', True, color_a)
-        text_destination = font.render('도착지를', True, color_a)
-        text_select = font.render('선택해주세요', True, color_b)
-        text_choose = font.render('선택', True, color_0)
-        text_retry = small_font.render('이전', True, color_0)
-        text_output = font.render('결과 화면', True, color_b)
-        text_check = font.render('확인', True, color_0)
+        text_source = font.render('where to start', True, color_a)
+        text_destination = font.render('where to end', True, color_a)
+        text_select = font.render('Select', True, color_b)
+        text_choose = font.render('select', True, color_0)
+        text_retry = small_font.render('back', True, color_0)
+        text_output = font.render('output', True, color_b)
+        text_check = font.render('check', True, color_0)
 
         # FPS
         done = False
