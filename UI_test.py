@@ -126,7 +126,7 @@ def make_graph(start, end):
                 continue
             elif i >= 25:
                 tmp_i = chr(i+40)
-                idx_i = chr(i+40)
+                i_i = chr(i+40)
                 if j >= 25:
                     tmp_j = chr(j+40)
                 else:
@@ -136,8 +136,8 @@ def make_graph(start, end):
             else:
                 tmp_i = str(i+1)
                 tmp_j = str(j+1)
-                idx_i = i+1
-            G.add_edge(tmp_j, tmp_i, weight=int(df_w[idx_i][j]))
+                i_i = i+1
+            G.add_edge(tmp_j, tmp_i, weight=int(df_w[i_i][j]))
 
     # 좌표 설정
     pos = {}
@@ -146,13 +146,13 @@ def make_graph(start, end):
         node = df_p['point_name'][i]
         pos[str(node)] = (df_p['pos_x'][i], df_p['pos_y'][i])
         label[str(node)] = node
-    NG, time = shortpath_print_dijkstra(G, start, end)
+    NG, time, path = shortpath_print_dijkstra(G, start, end)
     nx.draw(NG, pos, node_size=100, node_color='yellow',
-            labels=label, font_size=8, font_color="black")
+            labels=label, font_size=8, font_color="black", edge_color="red")
     plt.imshow(image)
     plt.savefig("./img/path.png")
     plt.cla()
-    return time
+    return time, path
 
 
 def make_button_back(color, text):
@@ -162,9 +162,8 @@ def make_button_back(color, text):
 
 
 def make_title(text1, text2):
-    screen.blit(text1, (pad_width + 20, 70))
-    if text2 != None:
-        screen.blit(text2, (pad_width, 20))
+    screen.blit(text1, (pad_width, 20))
+    screen.blit(text2, (pad_width + 20, 70))
 
 
 def pos_to_index(x, y):
@@ -198,7 +197,7 @@ def input_source():  # source를 입력받음
         screen.blit(background, (0, 0))
 
         # 타이틀 그려주기
-        make_title(text_source, text_select)
+        make_title(text_select, text_source)
 
         # mouse[0] -> x 축 좌표, mouse[1] -> y 축 좌표
         mouse = pygame.mouse.get_pos()
@@ -253,7 +252,7 @@ def input_destination(source):  # destination을 입력받음
         screen.blit(background, (0, 0))
 
         # destination text 그려주기
-        make_title(text_destination, text_select)
+        make_title(text_select, text_destination)
 
         # stores the (x,y) coordinates into
         # the variable as a tuple
@@ -297,7 +296,7 @@ def input_destination(source):  # destination을 입력받음
     return (click, True)
 
 
-def output(time, start, end):
+def output(time, start, end, path):
     done = False
 
     while not done:
@@ -316,7 +315,8 @@ def output(time, start, end):
         screen.blit(output_image, (0, 0))
 
         # source text 그려주기
-        make_title(text_output, None)
+        make_title(font.render("start: " + start, True, color_a),
+                   font.render("end: " + end, True, color_a))
 
         mouse = pygame.mouse.get_pos()
 
@@ -326,13 +326,22 @@ def output(time, start, end):
         else:
             make_button_main(color_b, text_check)
 
-        # 선택 항목 출력
-        screen.blit(font.render(start + " to " + end, True, color_a),
-                    (pad_width, screen_height - 450))
+        # path 그려주기
+
+        path_width = [pad_width+(i*50) for i in range(5)]
+        for i in range(len(path)):
+            pygame.draw.rect(
+                screen, color_b, [path_width[i], pad_height, button_size, button_size])
+            if len(str(path[i])) == 2:
+                screen.blit(font.render(path[i], True, color_0),
+                            (path_width[i]+5, pad_height))
+            else:
+                screen.blit(font.render(path[i], True, color_0),
+                            (path_width[i]+12, pad_height))
 
         # 시간 출력
         screen.blit(font.render('time: ' + str(time)+' minutes', True, color_a),
-                    (pad_width + 30, screen_height - 400))
+                    (pad_width, screen_height - 200))
         # updates the frames of the game
         pygame.display.update()
 
@@ -347,7 +356,7 @@ while True:
         start = index_to_node(source)
         end = index_to_node(destination[0])
 
-        time = make_graph(start, end)
+        time, path = make_graph(start, end)
 
         img = Image.open('./img/path.png')
         xy = (80, 0, 560, 480)
@@ -400,4 +409,4 @@ while True:
 
         output_image = pygame.image.load("./img/path.png")
 
-        output(time, start, end)
+        output(time, start, end, path)
