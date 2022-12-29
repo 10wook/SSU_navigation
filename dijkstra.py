@@ -12,7 +12,7 @@ def shortpath_print_dijkstra(G, start, end):
     nx.MultiDiGraph.clear_edges(NG)
     for i in range(len(tg)-1):
         NG.add_edge(tg[i], tg[i+1])
-    return NG, min
+    return NG, min, tg
 
 
 def nxgraph_draw(Graph, pos):
