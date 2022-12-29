@@ -1,10 +1,11 @@
 import networkx as nx
 import pandas as pd
 import matplotlib.image as img
+import matplotlib as plt
 from dijkstra import *
 import pygame
 from PIL import Image
-
+import platform
 #######################################################################
 # 기본 초기화 (반드시 해야 하는 것들)
 pygame.init()
@@ -41,8 +42,14 @@ pad_width = background_width + button_size/2
 pad_height = button_size/2 + background_height/4
 
 title_font = pygame.font.SysFont('Corbel', 40, True, True)
-small_font = pygame.font.SysFont('malgungothic', 20, True)
-font = pygame.font.SysFont('malgungothic', 35, True)
+
+
+if platform.system() == 'Windows':  # window
+    font = pygame.font.SysFont('malgungothic', 35, True)
+    small_font = pygame.font.SysFont('malgungothic', 20, True)
+else:  # mac
+    small_font = pygame.font.SysFont('applegothicttf', 20, True)
+    font = pygame.font.SysFont('applegothicttf', 35, True)
 alpha = ['A', 'B', 'C', 'D', 'E']
 
 # 텍스트
@@ -378,8 +385,14 @@ while True:
         pad_height = button_size/2 + background_height/4
 
         title_font = pygame.font.SysFont('Corbel', 40, True, True)
-        small_font = pygame.font.SysFont('malgungothic', 20, True)
-        font = pygame.font.SysFont('malgungothic', 35, True)
+
+        if platform.system() == 'Windows':  # window
+            font = pygame.font.SysFont('malgungothic', 35, True)
+            small_font = pygame.font.SysFont('malgungothic', 20, True)
+        else:  # mac
+            small_font = pygame.font.SysFont('applegothicttf', 20, True)
+            font = pygame.font.SysFont('applegothicttf', 35, True)
+
         alpha = ['A', 'B', 'C', 'D', 'E']
 
         # 텍스트
